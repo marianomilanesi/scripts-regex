@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Debe especificar una carpeta como argumento"
+    exit 1
+fi
+
+if [ -z "$(find "$1" -type f -exec grep -H "Nmap scan report\|open" {} + | grep -B1 open | grep Nmap | cut -d ' ' -f 5)" ]; then
+    echo "No se encontraron ips activas"
+else
+    find "$1" -type f -exec grep -H "Nmap scan report\|open" {} + | grep -B1 open | grep Nmap | cut -d ' ' -f 5
+fi
